@@ -11,3 +11,7 @@ cd ~/src/mjpg-streamer
 svn https://mjpg-streamer.svn.sourceforge.net/svnroot/mjpg-streamer .
 make
 sudo make install
+
+cd ~
+sudo cp ./initscripts/stream /etc/init.d/
+sudo update-rc.d stream defaults

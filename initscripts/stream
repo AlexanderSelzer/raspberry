@@ -1,0 +1,42 @@
+#!/bin/bash
+
+HOMEDIR=/home/pi
+
+start() {
+    echo "Starting stream"
+    
+    if [[ -f "$HOMEDIR/mjpg-stream.sh" ]]; then
+      $HOMEDIR/mjpg-stream.sh > /dev/null 2>&1 &
+    else
+      echo "no ~/mjpg-stream.sh file found"
+
+      ## whatever
+      mjpg_streamer -i "/usr/local/lib/input_uvc.so -d /dev/video0 -f 24 -r 1280x720" \
+      -o "/usr/local/lib/output_http.so -p 8080 -w ~/mjpg-streamer"
+    fi
+}
+
+stop() {
+    echo "Stopping stream"
+    killall mjpg_streamer > /dev/null
+
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  *)
+    echo "usage: /etc/init.d/stream {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
