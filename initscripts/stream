@@ -4,6 +4,11 @@ HOMEDIR=/home/pi
 
 start() {
     echo "Starting stream"
+
+    if [[ ! -a /dev/video0 ]]; then
+      echo "Could not start stream: /dev/video0 does not exist. Probably the camera is unplugged."
+      exit 1
+    fi
     
     if [[ -f "$HOMEDIR/mjpg-stream.sh" ]]; then
       $HOMEDIR/mjpg-stream.sh > /dev/null 2>&1 &
@@ -18,7 +23,7 @@ start() {
 
 stop() {
     echo "Stopping stream"
-    killall mjpg_streamer > /dev/null
+    killall mjpg_streamer > /dev/null 2>&1
 
 }
 
