@@ -55,7 +55,7 @@ Hotplugging might start gpsd with the wrong arguments (not specifying the device
 This is semi-well-known (http://www.raspberrypi.org/forums/viewtopic.php?f=45&t=53644), and there is a hack
 to fix it:
 
-Edit /etc/defaults/gpsd, and put the name of the device under GPSD_OPTIONS.
+Edit /etc/defaults/gpsd, and put the name of the device into GPSD_OPTIONS.
 
 example:
 ```
