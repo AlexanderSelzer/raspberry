@@ -35,10 +35,34 @@ Use the full path and it will work: `/usr/local/lib/input_uvc.so`
 
 # GPS
 
+## install
+
 install gpsd, gpsd-clients
 
 find GPS device. e.g. /dev/ttyACM0
 
-`gpsd /dev/ttyACM0`
+`gpsd /dev/gps0`
 
 if it works: `dpkg-reconfigure gpsd` to enable udev hotplugging/autostart.
+
+Check with `cgps` if it works after plugging in the GPS module.
+
+If not, see below (bugs)
+
+## bugs
+
+Hotplugging might start gpsd with the wrong arguments (not specifying the device file).
+This is semi-well-known (http://www.raspberrypi.org/forums/viewtopic.php?f=45&t=53644), and there is a hack
+to fix it:
+
+Edit /etc/defaults/gpsd, and put the name of the device under GPSD_OPTIONS.
+
+example:
+```
+GPSD_OPTIONS="-n /dev/gps0"
+DEVICES=""
+```
+
+This will start the process like this: `gpsd -n /dev/gps0 -F /var/run/gpsd.sock`
+
+not like this: `gpsd -n -F /var/run/gpsd.sock`
