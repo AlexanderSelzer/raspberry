@@ -23,7 +23,12 @@ Setting the hue to 5 made the video look even more natural.
 
 ### JPEG Quality
 
-The Raspberry Pi is (in most cases) limited by its CPU, and not bandwidth, when streaming video.
+The Raspberry Pi is (in most cases) limited by its CPU, and not its bandwidth, when streaming video.
 
 Modifying the JPEG quality (e.g. `-q 80`: 80%), will cause the program to block the CPU, while the framerate
-may be under 2 fps.
+may drop down to under 2 fps.
+
+### Shared Libraries
+
+`mjpg_streamer` might not find the shared libraries, even though they are in the `PATH`.
+Use the full path and it will work: `/usr/local/lib/input_uvc.so`
