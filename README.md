@@ -32,3 +32,13 @@ may drop down to under 2 fps.
 
 `mjpg_streamer` might not find the shared libraries, even though they are in the `PATH`.
 Use the full path and it will work: `/usr/local/lib/input_uvc.so`
+
+# GPS
+
+install gpsd, gpsd-clients
+
+find GPS device. e.g. /dev/ttyACM0
+
+`gpsd /dev/ttyACM0`
+
+if it works: `dpkg-reconfigure gpsd` to enable udev hotplugging/autostart.
